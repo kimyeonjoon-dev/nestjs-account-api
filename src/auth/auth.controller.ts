@@ -40,6 +40,7 @@ export class AuthController {
     //   path: '/',
     //   expires: new Date(0),
     // });
+    console.log('logout');
     return { "ret" : "ok"}
   }
 
