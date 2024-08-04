@@ -62,7 +62,7 @@ export class AuthController {
 
     
     // console.log(req.user);
-    //return { ret: 'ok' };
+    return { ret: 'ok' };
   }
 
   @UseGuards(AuthGuard)
