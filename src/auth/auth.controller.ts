@@ -19,9 +19,7 @@ export class AuthController {
   async login(@Body() loginDto: Record<string, any>) {
     // , @Res() res
     const ret = await this.authService.login(
-      loginDto.email,
-      loginDto.password,
-      loginDto.returnUrl,
+      loginDto
     );
     console.log(ret);
     return ret;
@@ -36,17 +34,23 @@ export class AuthController {
   @Post('logout')
   async logout() {
     // @Request() req, @Res({ passthrough: true }) res: Response
-    // res.cookie('access_token', '', {      
+    // res.cookie('access_token', '', {
     //   path: '/',
     //   expires: new Date(0),
     // });
     console.log('logout');
-    return { "ret" : "ok"}
+    return { ret: 'ok' };
   }
 
   @UseGuards(AuthGuard)
   @Post('user-info')
   getUserInfo(@Request() req) {
     return req.user;
+  }
+
+  @UseGuards(AuthGuard)
+  @Post('check')
+  check(@Request() req, @Body() dto: Record<string, any>) {    
+    return this.authService.checkReissue(req.user, dto)
   }
 }

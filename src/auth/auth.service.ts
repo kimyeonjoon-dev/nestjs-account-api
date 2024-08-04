@@ -19,18 +19,33 @@ export class AuthService {
   ];
 
   async login(
-    email: string,
-    password: string,
-    returnUrl: string,
+    loginDto: any
+    // email: string,
+    // password: string,
+    // returnUrl: string,
   ): Promise<any> {
     const user = this.users.find(
-      (user) => user.email === email && user.password === password,
+      (user) =>
+        user.email === loginDto.email && user.password === loginDto.password,
     );
+    console.log('login: %s %s', loginDto.email, loginDto.clientId);
     if (user) {
       const payload = { sub: user.userId, email: user.email };
       return {
         access_token: await this.jwtService.signAsync(payload),
-        returnUrl: returnUrl,
+        returnUrl: loginDto.returnUrl,
+      };
+    } else {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+    }
+  }
+
+  async checkReissue(data:any, dto: any) {
+    console.log('checkReissue: %s %s', data.email, dto.clientId);
+    if (data) {
+      return {
+        access_token: await this.jwtService.signAsync(data),
+        returnUrl: dto.returnUrl,
       };
     } else {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
