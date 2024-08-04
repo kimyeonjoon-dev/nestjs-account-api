@@ -40,11 +40,13 @@ export class AuthService {
     }
   }
 
-  async checkReissue(data:any, dto: any) {
-    console.log('checkReissue: %s %s', data.email, dto.clientId);
-    if (data) {
+  async checkReissue(user:any, dto: any) {
+    console.log('checkReissue: %s %s', user.email, dto.clientId);
+    console.log(user);
+    if (user) {
+      const payload = { sub: user.sub, email: user.email };
       return {
-        access_token: await this.jwtService.signAsync(data),
+        access_token: await this.jwtService.signAsync(payload),
         returnUrl: dto.returnUrl,
       };
     } else {
