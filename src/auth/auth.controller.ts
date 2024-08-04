@@ -47,7 +47,9 @@ export class AuthController {
     @Body() dto: Record<string, any>,
   ) {
     console.log('logout1');
-    console.log(res);
+    // console.log(res);
+    console.log('logout');
+    console.log(dto);
     res.cookie('token', '', {
       path: '/',
       expires: new Date(0),
@@ -58,10 +60,9 @@ export class AuthController {
       expires: new Date(0),
     });
 
-    console.log('logout');
-    console.log(dto);
+    
     // console.log(req.user);
-    return { ret: 'ok' };
+    //return { ret: 'ok' };
   }
 
   @UseGuards(AuthGuard)
