@@ -66,7 +66,7 @@ export class AuthController {
 
   @UseGuards(AuthGuard)
   @Post('check')
-  check(@Request() req, @Body() dto: Record<string, any>) {
-    return this.authService.checkReissue(req.user, dto);
+  async check(@Request() req, @Body() dto: Record<string, any>) {
+    return await this.authService.checkReissue(req.user, dto);
   }
 }
