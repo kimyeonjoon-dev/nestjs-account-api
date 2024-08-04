@@ -39,16 +39,20 @@ export class AuthController {
     //   return ret
     // }
   }
-
+  
   @Post('logout')
-  async logout(@Request() req, @Res({ passthrough: true }) res: Response, @Body() dto: Record<string, any>) {
+  async logout(
+    @Request() req,
+    @Res({ passthrough: true }) res: Response,
+    @Body() dto: Record<string, any>,
+  ) {
     console.log('logout1');
-    console.log(res)
-    res.cookie('token', '', {      
+    console.log(res);
+    res.cookie('token', '', {
       path: '/',
       expires: new Date(0),
     });
-    res.cookie('token', '', {      
+    res.cookie('token', '', {
       domain: process.env.DOMAIN_URL,
       path: '/',
       expires: new Date(0),
@@ -56,6 +60,7 @@ export class AuthController {
 
     console.log('logout');
     console.log(dto);
+    // console.log(req.user);
     return { ret: 'ok' };
   }
 
