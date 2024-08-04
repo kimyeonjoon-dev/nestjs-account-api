@@ -24,7 +24,7 @@ export class AuthController {
     const ret = await this.authService.login(loginDto);
     console.log(ret);
     console.log(process.env.DOMAIN_URL);
-    res.cookie('token', ret, {
+    res.cookie('token', ret.access_token, {
       httpOnly: true,
       domain: process.env.DOMAIN_URL,
       path: '/',
