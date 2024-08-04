@@ -43,6 +43,7 @@ export class AuthController {
   @Post('logout')
   async logout(@Request() req, @Res({ passthrough: true }) res: Response, @Body() dto: Record<string, any>) {
     console.log('logout1');
+    console.log(res)
     res.cookie('token', '', {      
       path: '/',
       expires: new Date(0),
