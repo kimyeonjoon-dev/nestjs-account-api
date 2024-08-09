@@ -20,7 +20,7 @@ export class AuthController {
     @Body() loginDto: Record<string, any>,
     @Res({ passthrough: true }) res: Response,
   ) {
-    // , @Res() res
+    
     const ret = await this.authService.login(loginDto);
     console.log(ret);
     console.log(process.env.DOMAIN_URL);
@@ -31,13 +31,7 @@ export class AuthController {
       expires: new Date(Date.now() + 1000 * 60 * 5),
     });
     return ret;
-    // return ret;
-    // if (ret) {
-    //   // return res.redirect(
-    //   //   `${loginDto.returnUrl}/?access_token=${ret.access_token}`,
-    //   // );
-    //   return ret
-    // }
+    
   }
   
   @Post('logout')
