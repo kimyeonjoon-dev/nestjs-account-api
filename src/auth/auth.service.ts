@@ -19,7 +19,7 @@ export class AuthService {
   ];
 
   async login(
-    loginDto: any
+    loginDto: any,
     // email: string,
     // password: string,
     // returnUrl: string,
@@ -32,25 +32,27 @@ export class AuthService {
     if (user) {
       const payload = { sub: user.userId, email: user.email };
       return {
-        access_token: await this.jwtService.signAsync(payload),
+        accessToken: await this.jwtService.signAsync(payload),
         returnUrl: loginDto.returnUrl,
       };
     } else {
-      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+      // throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+      return { error: 1, message: "wrong id, password"}
     }
   }
 
-  async checkReissue(user:any, dto: any) {
-    console.log('checkReissue: %s %s', user.email, dto.clientId);
-    console.log(user);
+  async checkReissue(user: any, dto: any) {
+    // console.log('checkReissue: %s %s', user.email, dto.clientId);
+    // console.log(user);
     if (user) {
       const payload = { sub: user.sub, email: user.email };
       return {
-        access_token: await this.jwtService.signAsync(payload),
+        accessToken: await this.jwtService.signAsync(payload),
         returnUrl: dto.returnUrl,
       };
     } else {
-      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+      // throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+      return { error: 1, message: 'not valid' };
     }
   }
 }
