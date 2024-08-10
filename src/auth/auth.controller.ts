@@ -22,14 +22,15 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ) {
     const ret = await this.authService.login(loginDto);
-    console.log(ret);
-    console.log(process.env.DOMAIN_URL);
-    res.cookie('token', ret.accessToken, {
-      httpOnly: true,
-      domain: process.env.DOMAIN_URL,
-      path: '/',
-      expires: new Date(Date.now() + 1000 * 60 * 5),
-    });
+    
+    if( !ret.error ) {
+      res.cookie('token', ret.accessToken, {
+        httpOnly: true,
+        domain: process.env.DOMAIN_URL,
+        path: '/',
+        expires: new Date(Date.now() + 1000 * 60 * 5),
+      });
+    }
     return ret;
   }
 
