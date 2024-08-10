@@ -19,18 +19,18 @@ export class AuthController {
   @Post('login')
   public async login(
     @Body() loginDto: Record<string, any>,
-    @Res({ passthrough: true }) res: Response,
+    // @Res({ passthrough: true }) res: Response,
   ) {
     const ret = await this.authService.login(loginDto);
     
-    if( !ret.error ) {
-      res.cookie('token', ret.accessToken, {
-        httpOnly: true,
-        domain: process.env.DOMAIN_URL,
-        path: '/',
-        expires: new Date(Date.now() + 1000 * 60 * 5),
-      });
-    }
+    // if( !ret.error ) {
+    //   res.cookie('token', ret.accessToken, {
+    //     httpOnly: true,
+    //     domain: process.env.DOMAIN_URL,
+    //     path: '/',
+    //     expires: new Date(Date.now() + 1000 * 60 * 5),
+    //   });
+    // }
     return ret;
   }
 
